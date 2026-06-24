@@ -22,18 +22,18 @@ export default async function ToolPage({ params }: { params: Params }) {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <nav className="text-sm text-zinc-500 mb-6">
-        <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100">Home</Link>
+      <nav className="text-sm text-muted-foreground mb-6">
+        <Link href="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
-        <Link href={`/#${cat.slug}`} className="hover:text-zinc-900 dark:hover:text-zinc-100">{cat.name}</Link>
+        <Link href={`/#${cat.slug}`} className="hover:text-foreground">{cat.name}</Link>
       </nav>
       <h1 className="text-3xl font-semibold tracking-tight">{tool.name}</h1>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-400">{tool.blurb}</p>
+      <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
-      <div className="mt-10 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 p-12 text-center">
-        <div className="text-zinc-400 text-sm uppercase tracking-wider">Coming soon</div>
-        <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-          This tool is on the build list. The platform shell is up — we'll wire each tool in next.
+      <div className="mt-10 rounded-2xl border-2 border-dashed border-border p-12 text-center">
+        <div className="text-muted-foreground text-sm uppercase tracking-wider">Coming soon</div>
+        <p className="mt-3 text-muted-foreground">
+          This tool is on the build list. The platform shell is up — we&apos;ll wire each tool in next.
         </p>
       </div>
     </div>
