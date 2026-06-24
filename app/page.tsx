@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardAction,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -23,9 +23,12 @@ export default function Home() {
           things you used to need ten different sites for. All in one place.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3 text-sm">
-          <Button asChild size="lg" className="rounded-full">
-            <Link href="#documents">Browse tools</Link>
-          </Button>
+          <Link
+            href="#documents"
+            className={buttonVariants({ size: "lg", className: "rounded-full" })}
+          >
+            Browse tools
+          </Link>
           <span className="text-muted-foreground">No signup for the basics.</span>
         </div>
       </section>
