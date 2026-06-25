@@ -42,7 +42,7 @@ export const CATEGORIES: Category[] = [
       { slug: "compress", name: "Compress image", blurb: "Smaller files, same quality.", status: "live" },
       { slug: "resize", name: "Resize & convert", blurb: "JPG ↔ PNG ↔ WebP ↔ AVIF, any dimensions.", status: "live" },
       { slug: "passport", name: "Passport / ID photo", blurb: "Correct size, background, and head position.", status: "soon" },
-      { slug: "watermark", name: "Watermark", blurb: "Add or remove watermarks.", status: "soon" },
+      { slug: "watermark", name: "Watermark", blurb: "Add a text or signature watermark — pick position, size, opacity.", status: "live" },
     ],
   },
   {
