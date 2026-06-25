@@ -21,8 +21,8 @@ const ResultSchema = z.object({
   skills: z
     .array(z.string())
     .min(4)
-    .max(20)
-    .describe("Concrete skills from the user's notes that match the JD. Prefer specific tools/technologies/domains over generic phrases."),
+    .max(40)
+    .describe("Aim for 8–20 concrete skills from the notes that match the JD. Prefer specific tools/technologies/domains over generic phrases. If the notes are heavy on tech, you may include up to 40, but lean tight."),
   experience: z
     .array(
       z.object({
@@ -34,8 +34,8 @@ const ResultSchema = z.object({
         bullets: z
           .array(z.string())
           .min(1)
-          .max(6)
-          .describe("Achievement bullets — action verb + quantified outcome where possible. Tailored to the JD. Use 1 bullet only for very short stints or single-project entries."),
+          .max(10)
+          .describe("Aim for 3–6 achievement bullets per role — action verb + quantified outcome where possible. Tailored to the JD. Use 1 bullet for very short stints or single-project entries. Long tenured roles can have up to 10 if the notes really support it."),
       }),
     )
     .min(1)
