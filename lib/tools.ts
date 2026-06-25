@@ -52,11 +52,11 @@ export const CATEGORIES: Category[] = [
     tools: [
       { slug: "transcribe", name: "Transcribe", blurb: "Audio or video → text, optionally with timestamps.", status: "live" },
       { slug: "subtitles", name: "Auto-subtitle", blurb: "Burn captions into your video.", status: "soon" },
-      { slug: "compress-video", name: "Compress video", blurb: "Smaller files for sharing.", status: "soon" },
-      { slug: "convert-media", name: "Convert media", blurb: "MP4, MP3, WAV, MOV, WebM — any-to-any.", status: "soon" },
-      { slug: "trim", name: "Trim & cut", blurb: "Snip a clip from a longer file.", status: "soon" },
+      { slug: "compress-video", name: "Compress video", blurb: "Smaller files for sharing — CRF knob, in your browser.", status: "live" },
+      { slug: "convert-media", name: "Convert media", blurb: "MP4, MP3, WAV, MOV, WebM, M4A, FLAC, OGG — in your browser.", status: "live" },
+      { slug: "trim", name: "Trim & cut", blurb: "Snip a clip from a longer file — no re-encoding.", status: "live" },
       { slug: "tts", name: "Text-to-speech", blurb: "Natural Indic + English voices. Powered by Sarvam.", status: "live" },
-      { slug: "denoise", name: "Remove background noise", blurb: "Studio-clean audio from any recording.", status: "soon" },
+      { slug: "denoise", name: "Remove background noise", blurb: "Cut hiss and room tone from any recording.", status: "live" },
     ],
   },
 ];
