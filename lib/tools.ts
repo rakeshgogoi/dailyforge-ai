@@ -22,7 +22,7 @@ export const CATEGORIES: Category[] = [
     tools: [
       { slug: "convert", name: "Convert any document", blurb: "PDF, DOCX, MD, HTML, TXT — any-to-any.", status: "soon" },
       { slug: "ocr", name: "OCR & handwriting", blurb: "Image or PDF to editable text.", status: "soon" },
-      { slug: "summarize", name: "Summarize", blurb: "PDF, article URL, or YouTube link to bullet notes.", status: "soon" },
+      { slug: "summarize", name: "Summarize", blurb: "PDF, article URL, or YouTube link to bullet notes.", status: "live" },
       { slug: "translate", name: "Translate document", blurb: "Keep formatting; supports 50+ languages.", status: "soon" },
       { slug: "pdf-merge", name: "Merge PDF", blurb: "Combine multiple PDFs into one.", status: "soon" },
       { slug: "pdf-split", name: "Split PDF", blurb: "Pick pages or split by range.", status: "soon" },

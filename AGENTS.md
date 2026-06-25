@@ -10,7 +10,7 @@ A multi-tool AI utility platform: convert documents, edit images, transcribe/edi
 - shadcn/ui for components
 
 **AI (router pattern via Vercel AI SDK)**
-- Claude (Anthropic) — OCR via vision, summarization, translation, rewriting, resume tasks
+- Gemini (Google) — OCR via vision, summarization, translation, rewriting, resume tasks
 - Groq Whisper — transcription (fast + cheap)
 - Replicate / fal.ai — image AI (bg-remove, upscale, restore)
 - CloudConvert — document & media format conversion (do NOT roll our own)
@@ -47,7 +47,7 @@ The scaffold is already up:
 3. **Provision Neon Postgres.** Use the Neon MCP. Create one project, get the connection string into `.env.local`.
 4. **Wire Drizzle ORM.** Schemas for `users`, `credits_ledger`, `jobs` (at minimum).
 5. **Better Auth setup.** Email magic links + Google. Keep auth optional for v1 tools (no signup wall).
-6. **AI SDK + first tool end-to-end.** Pick ONE tool to ship as the template — recommend **Summarize URL** (cheapest, no file handling): paste URL → fetch → Claude → bullets.
+6. **AI SDK + first tool end-to-end.** Pick ONE tool to ship as the template — recommend **Summarize URL** (cheapest, no file handling): paste URL → fetch → Gemini → bullets.
 
 Do not build all 23 tools in one go. Ship one, learn, iterate.
 
