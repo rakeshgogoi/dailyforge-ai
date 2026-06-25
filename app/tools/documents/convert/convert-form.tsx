@@ -15,14 +15,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type Format = "md" | "html" | "pdf" | "txt";
+type Format = "md" | "html" | "pdf" | "txt" | "docx";
 
 const FORMAT_LABELS: Record<Format, string> = {
   md: "Markdown",
   html: "HTML",
   pdf: "PDF",
   txt: "Plain text",
+  docx: "Word (DOCX)",
 };
+
+const BINARY_FORMATS: Format[] = ["pdf", "docx"];
 
 function extOf(name: string): string {
   const i = name.lastIndexOf(".");
@@ -35,16 +38,27 @@ function inferFormat(file: File): Format | null {
   if (ext === "html" || ext === "htm") return "html";
   if (ext === "pdf") return "pdf";
   if (ext === "txt") return "txt";
+  if (ext === "docx") return "docx";
   return null;
 }
 
-// Valid source → target pairs. We're honest about what we can do well.
+// Valid source → target pairs. The full matrix is supported.
 const ALLOWED: Record<Format, Format[]> = {
-  md: ["html", "pdf", "txt"],
-  html: ["md", "pdf", "txt"],
-  pdf: ["txt"],
-  txt: ["md", "html", "pdf"],
+  md: ["html", "pdf", "txt", "docx"],
+  html: ["md", "pdf", "txt", "docx"],
+  pdf: ["txt", "md", "html", "docx"],
+  txt: ["md", "html", "pdf", "docx"],
+  docx: ["pdf", "html", "md", "txt"],
 };
+
+// In-browser is fast and offline-able; CloudConvert is used only when needed.
+function needsCloudConvert(source: Format, target: Format): boolean {
+  if (source === "docx" || target === "docx") return true;
+  // PDF → MD/HTML through CloudConvert preserves layout/formatting much
+  // better than our text-extract fallback.
+  if (source === "pdf" && (target === "md" || target === "html")) return true;
+  return false;
+}
 
 export function ConvertForm() {
   const [file, setFile] = React.useState<File | null>(null);
@@ -86,6 +100,7 @@ export function ConvertForm() {
       "text/html": [".html", ".htm"],
       "application/pdf": [".pdf"],
       "text/plain": [".txt"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
     },
     multiple: false,
   });
@@ -135,6 +150,34 @@ export function ConvertForm() {
       return null;
     });
     try {
+      // Route DOCX-involved and PDF→MD/HTML to CloudConvert; everything else stays in-browser.
+      if (needsCloudConvert(source, target)) {
+        if (!file) {
+          toast.error("DOCX conversions need an uploaded file, not pasted text.");
+          return;
+        }
+        const form = new FormData();
+        form.append("file", file);
+        form.append("sourceFormat", source);
+        form.append("targetFormat", target);
+        const res = await fetch("/api/tools/doc-convert", { method: "POST", body: form });
+        if (!res.ok) {
+          const d = await res.json().catch(() => ({}));
+          throw new Error(d?.error ?? `Failed (HTTP ${res.status}).`);
+        }
+        const filename = res.headers.get("x-output-filename")
+          ?? `${file.name.replace(/\.[^.]+$/, "")}.${target}`;
+        if (BINARY_FORMATS.includes(target)) {
+          const blob = await res.blob();
+          setResult({ kind: "blob", url: URL.createObjectURL(blob), name: filename });
+        } else {
+          // Text-y output (md/html/txt) — read as string so we can show + offer copy.
+          const body = await res.text();
+          setResult({ kind: "text", body });
+        }
+        return;
+      }
+
       const src = await readSource();
 
       // Convert source → an intermediate string.
