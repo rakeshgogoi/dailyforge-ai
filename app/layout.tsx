@@ -41,7 +41,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="border-b border-border bg-background/70 backdrop-blur sticky top-0 z-10">
+          <header className="border-b border-border bg-header sticky top-0 z-10">
             <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
               <Link href="/" className="font-semibold tracking-tight">
                 dailyforge<span className="text-orange-500">·</span>ai
