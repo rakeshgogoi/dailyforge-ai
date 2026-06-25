@@ -107,7 +107,7 @@ export function TranslateForm() {
         <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground whitespace-nowrap">Translate to</span>
-            <Select value={target} onValueChange={setTarget}>
+            <Select value={target} onValueChange={(v) => v && setTarget(v)}>
               <SelectTrigger className="w-56">
                 <SelectValue />
               </SelectTrigger>
