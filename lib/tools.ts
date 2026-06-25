@@ -37,7 +37,7 @@ export const CATEGORIES: Category[] = [
     name: "Images",
     tagline: "Edit, restore, convert, generate.",
     tools: [
-      { slug: "bg-remove", name: "Remove background", blurb: "One-click transparent PNG.", status: "soon" },
+      { slug: "bg-remove", name: "Remove background", blurb: "One-click transparent PNG — runs in your browser.", status: "live" },
       { slug: "upscale", name: "Upscale & restore", blurb: "Sharpen, denoise, repair old photos.", status: "soon" },
       { slug: "compress", name: "Compress image", blurb: "Smaller files, same quality.", status: "live" },
       { slug: "resize", name: "Resize & convert", blurb: "JPG ↔ PNG ↔ WebP ↔ AVIF, any dimensions.", status: "live" },
@@ -50,12 +50,12 @@ export const CATEGORIES: Category[] = [
     name: "Audio & Video",
     tagline: "Transcribe, caption, convert, voice.",
     tools: [
-      { slug: "transcribe", name: "Transcribe", blurb: "Audio or video → text with speakers.", status: "soon" },
+      { slug: "transcribe", name: "Transcribe", blurb: "Audio or video → text, optionally with timestamps.", status: "live" },
       { slug: "subtitles", name: "Auto-subtitle", blurb: "Burn captions into your video.", status: "soon" },
       { slug: "compress-video", name: "Compress video", blurb: "Smaller files for sharing.", status: "soon" },
       { slug: "convert-media", name: "Convert media", blurb: "MP4, MP3, WAV, MOV, WebM — any-to-any.", status: "soon" },
       { slug: "trim", name: "Trim & cut", blurb: "Snip a clip from a longer file.", status: "soon" },
-      { slug: "tts", name: "Text-to-speech", blurb: "Natural voiceover from your script.", status: "soon" },
+      { slug: "tts", name: "Text-to-speech", blurb: "Natural Indic + English voices. Powered by Sarvam.", status: "live" },
       { slug: "denoise", name: "Remove background noise", blurb: "Studio-clean audio from any recording.", status: "soon" },
     ],
   },
