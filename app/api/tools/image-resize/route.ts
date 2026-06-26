@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 
@@ -35,7 +36,7 @@ function parseDimension(raw: string | null): number | undefined {
   return Math.min(MAX_DIMENSION, n);
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("resize", req);
   if (blocked) return blocked;
 
@@ -102,3 +103,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't process that image." }, { status: 422 });
   }
 }
+
+export const POST = withTracking("resize", handler);

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 
@@ -27,7 +28,7 @@ function clampQuality(raw: string | null): number {
   return Math.min(100, Math.max(10, n));
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("compress", req);
   if (blocked) return blocked;
 
@@ -78,3 +79,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't process that image." }, { status: 422 });
   }
 }
+
+export const POST = withTracking("compress", handler);

@@ -4,6 +4,7 @@ import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 const MAX_NOTES_CHARS = 12000;
 const MAX_JD_CHARS = 8000;
@@ -47,7 +48,7 @@ const ResultSchema = z.object({
     ),
 });
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("resume", req);
   if (blocked) return blocked;
 
@@ -87,3 +88,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export const POST = withTracking("resume", handler);

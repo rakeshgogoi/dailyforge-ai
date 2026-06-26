@@ -8,6 +8,7 @@ import {
   pgEnum,
   uuid,
   primaryKey,
+  index,
 } from "drizzle-orm/pg-core";
 
 // ── Better Auth core tables ────────────────────────────────────────────
@@ -111,16 +112,24 @@ export const rateLimits = pgTable(
   }),
 );
 
-export const jobs = pgTable("jobs", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
-  tool: text("tool").notNull(),
-  status: jobStatus("status").notNull().default("queued"),
-  input: jsonb("input"),
-  output: jsonb("output"),
-  error: text("error"),
-  creditsCost: integer("credits_cost").notNull().default(0),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  startedAt: timestamp("started_at", { withTimezone: true }),
-  completedAt: timestamp("completed_at", { withTimezone: true }),
-});
+export const jobs = pgTable(
+  "jobs",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+    anonymousId: text("anonymous_id"),
+    tool: text("tool").notNull(),
+    status: jobStatus("status").notNull().default("queued"),
+    input: jsonb("input"),
+    output: jsonb("output"),
+    error: text("error"),
+    creditsCost: integer("credits_cost").notNull().default(0),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+  },
+  (t) => ({
+    toolStartedIdx: index("jobs_tool_started_idx").on(t.tool, t.startedAt),
+    startedIdx: index("jobs_started_idx").on(t.startedAt),
+  }),
+);

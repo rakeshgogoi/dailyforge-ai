@@ -4,6 +4,7 @@ import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 const MAX_INPUT_CHARS = 8000;
 
@@ -49,7 +50,7 @@ const ResultSchema = z.object({
     .describe("The language you detected in the source text, in English (e.g. 'Spanish', 'Japanese'). If the source is already in the target language, output the target language name."),
 });
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("translate", req);
   if (blocked) return blocked;
 
@@ -89,3 +90,5 @@ export async function POST(req: Request) {
   }
 }
 
+
+export const POST = withTracking("translate", handler);

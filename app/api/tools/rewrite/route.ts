@@ -4,6 +4,7 @@ import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 const MODES = ["fix", "formal", "casual", "concise", "expand"] as const;
 type Mode = (typeof MODES)[number];
@@ -27,7 +28,7 @@ const MODE_INSTRUCTIONS: Record<Mode, string> = {
   expand: "Add helpful detail, examples, and connective explanation. Roughly double the length while staying on-topic and on-tone.",
 };
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("rewrite", req);
   if (blocked) return blocked;
 
@@ -66,3 +67,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export const POST = withTracking("rewrite", handler);

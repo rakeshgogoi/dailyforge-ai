@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -44,7 +45,7 @@ async function cc<T>(apiKey: string, path: string, init?: RequestInit): Promise<
   return (await res.json()) as T;
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("convert", req);
   if (blocked) return blocked;
 
@@ -157,3 +158,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: msg }, { status: 502 });
   }
 }
+
+export const POST = withTracking("convert", handler);

@@ -4,6 +4,7 @@ import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 const MAX_BYTES = 1_500_000; // ~1.5 MB of raw HTML
 const FETCH_TIMEOUT_MS = 15_000;
@@ -63,7 +64,7 @@ async function fetchWithLimits(url: string): Promise<string> {
   }
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("summarize", req);
   if (blocked) return blocked;
 
@@ -115,3 +116,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export const POST = withTracking("summarize", handler);

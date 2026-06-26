@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { recordClientToolRun } from "@/lib/jobs";
 
 const Body = z.object({ tool: z.string().min(1).max(64) });
 
@@ -18,5 +19,6 @@ export async function POST(req: Request) {
   }
   const blocked = await enforceLimit(parsed.data.tool, req);
   if (blocked) return blocked;
+  recordClientToolRun(parsed.data.tool, req).catch(() => {});
   return NextResponse.json({ ok: true });
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 
@@ -28,7 +29,7 @@ function pickFormat(input: string | null, fallback: Format): Format {
   return fallback;
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("upscale", req);
   if (blocked) return blocked;
 
@@ -100,3 +101,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't upscale that image." }, { status: 422 });
   }
 }
+
+export const POST = withTracking("upscale", handler);

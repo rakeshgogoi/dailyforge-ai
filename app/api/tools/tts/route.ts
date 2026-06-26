@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 
@@ -78,7 +79,7 @@ function concatWavs(buffers: Buffer[]): Buffer {
   return out;
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("tts", req);
   if (blocked) return blocked;
 
@@ -164,3 +165,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't reach Sarvam." }, { status: 502 });
   }
 }
+
+export const POST = withTracking("tts", handler);

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -43,7 +44,7 @@ function toVtt(segments: Segment[]): string {
   return lines.join("\n");
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("subtitles", req);
   if (blocked) return blocked;
 
@@ -133,3 +134,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't reach Groq." }, { status: 502 });
   }
 }
+
+export const POST = withTracking("subtitles", handler);

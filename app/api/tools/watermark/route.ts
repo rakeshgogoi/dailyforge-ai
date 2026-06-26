@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 
 import { enforceLimit } from "@/lib/rate-limit";
+import { withTracking } from "@/lib/jobs";
 
 export const runtime = "nodejs";
 
@@ -80,7 +81,7 @@ function buildTextSvg(opts: {
   );
 }
 
-export async function POST(req: Request) {
+async function handler(req: Request) {
   const blocked = await enforceLimit("watermark", req);
   if (blocked) return blocked;
 
@@ -199,3 +200,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Couldn't apply that watermark." }, { status: 422 });
   }
 }
+
+export const POST = withTracking("watermark", handler);
