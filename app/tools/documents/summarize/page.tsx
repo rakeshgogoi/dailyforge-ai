@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { SummarizeForm } from "./summarize-form";
 
 const match = getTool("documents", "summarize")!;
@@ -24,6 +25,7 @@ export default function SummarizePage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <SummarizeForm />
+      <ToolPageAd />
       <ToolBottomSeo category="documents" slug="summarize" />
     </div>
   );

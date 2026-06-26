@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { ResumeForm } from "./resume-form";
 
 const match = getTool("documents", "resume")!;
@@ -24,6 +25,7 @@ export default function ResumePage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <ResumeForm />
+      <ToolPageAd />
       <ToolBottomSeo category="documents" slug="resume" />
     </div>
   );

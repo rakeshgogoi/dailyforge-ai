@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { TranslateForm } from "./translate-form";
 
 const match = getTool("documents", "translate")!;
@@ -24,6 +25,7 @@ export default function TranslatePage() {
       <p className="mt-2 text-muted-foreground">Paste any text; auto-detect the source language and translate to your target. Document upload with formatting comes later.</p>
 
       <TranslateForm />
+      <ToolPageAd />
       <ToolBottomSeo category="documents" slug="translate" />
     </div>
   );

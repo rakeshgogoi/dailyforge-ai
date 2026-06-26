@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { PdfMergeForm } from "./pdf-merge-form";
 
 const match = getTool("documents", "pdf-merge")!;
@@ -24,6 +25,7 @@ export default function PdfMergePage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <PdfMergeForm />
+      <ToolPageAd />
       <ToolBottomSeo category="documents" slug="pdf-merge" />
     </div>
   );

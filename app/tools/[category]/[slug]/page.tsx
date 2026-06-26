@@ -4,6 +4,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 
 type Params = Promise<{ category: string; slug: string }>;
 
@@ -35,6 +36,7 @@ export default async function ToolPage({ params }: { params: Params }) {
           This tool is on the build list. The platform shell is up — we&apos;ll wire each tool in next.
         </p>
       </div>
+      <ToolPageAd />
       <ToolBottomSeo category={cat.slug} slug={tool.slug} />
     </div>
   );

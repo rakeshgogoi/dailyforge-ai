@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { RewriteForm } from "./rewrite-form";
 
 const match = getTool("documents", "rewrite")!;
@@ -24,6 +25,7 @@ export default function RewritePage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <RewriteForm />
+      <ToolPageAd />
       <ToolBottomSeo category="documents" slug="rewrite" />
     </div>
   );

@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { ConvertMediaForm } from "./convert-form";
 
 const match = getTool("audio-video", "convert-media")!;
@@ -24,6 +25,7 @@ export default function ConvertMediaPage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <ConvertMediaForm />
+      <ToolPageAd />
       <ToolBottomSeo category="audio-video" slug="convert-media" />
     </div>
   );

@@ -3,6 +3,7 @@ import { getTool } from "@/lib/tools";
 import { toolMetadata } from "@/lib/seo";
 import { ToolSeo } from "@/components/seo/tool-seo";
 import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
+import { ToolPageAd } from "@/components/ads/tool-page-ad";
 import { TrimForm } from "./trim-form";
 
 const match = getTool("audio-video", "trim")!;
@@ -24,6 +25,7 @@ export default function TrimPage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <TrimForm />
+      <ToolPageAd />
       <ToolBottomSeo category="audio-video" slug="trim" />
     </div>
   );

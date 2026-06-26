@@ -13,6 +13,7 @@ import { SITE_URL } from "@/lib/seo";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const SEARCH_CONSOLE = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
 const inter = Inter({
   variable: "--font-sans",
@@ -69,6 +70,7 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   verification: SEARCH_CONSOLE ? { google: SEARCH_CONSOLE } : undefined,
+  other: ADSENSE_CLIENT ? { "google-adsense-account": ADSENSE_CLIENT } : undefined,
 };
 
 export const viewport: Viewport = {
@@ -113,9 +115,13 @@ export default function RootLayout({
           </header>
           <main className="flex-1">{children}</main>
           <footer className="border-t border-border mt-12 sm:mt-16">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8 text-sm text-muted-foreground flex flex-col sm:flex-row gap-1 sm:gap-0 items-center sm:justify-between">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8 text-sm text-muted-foreground flex flex-col sm:flex-row gap-3 sm:gap-0 items-center sm:justify-between">
               <span>© {new Date().getFullYear()} dailyforge·ai</span>
-              <span>Built for the daily grind.</span>
+              <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 justify-center">
+                <Link href="/about" className="hover:text-foreground">About</Link>
+                <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
+                <Link href="/terms" className="hover:text-foreground">Terms</Link>
+              </nav>
             </div>
           </footer>
           <Toaster />
@@ -136,6 +142,15 @@ gtag('js', new Date());
 gtag('config', '${GA_ID}', { send_page_view: true });`}
             </Script>
           </>
+        )}
+        {ADSENSE_CLIENT && (
+          <Script
+            id="adsense"
+            async
+            strategy="afterInteractive"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+          />
         )}
       </body>
     </html>
