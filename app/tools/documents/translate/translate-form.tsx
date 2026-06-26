@@ -105,10 +105,10 @@ export function TranslateForm() {
         />
 
         <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground whitespace-nowrap">Translate to</span>
+          <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+            <span className="text-sm text-muted-foreground shrink-0">Translate to</span>
             <Select value={target} onValueChange={(v) => v && setTarget(v)}>
-              <SelectTrigger className="w-56">
+              <SelectTrigger className="w-full sm:w-56">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -121,7 +121,7 @@ export function TranslateForm() {
             </Select>
           </div>
 
-          <Button type="submit" disabled={loading || !text.trim()} size="lg" className="sm:ml-auto">
+          <Button type="submit" disabled={loading || !text.trim()} size="lg" className="w-full sm:w-auto sm:ml-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

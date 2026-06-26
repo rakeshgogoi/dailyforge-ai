@@ -235,7 +235,7 @@ export function PdfCompressForm() {
             Lower DPI and quality = smaller file. <strong className="text-foreground">Each page becomes a raster image</strong>, so the text won&apos;t be selectable in the output. Best for scanned docs or screenshots-heavy PDFs.
           </p>
 
-          <Button size="lg" onClick={run} disabled={running}>
+          <Button size="lg" onClick={run} disabled={running} className="w-full sm:w-auto">
             {running ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

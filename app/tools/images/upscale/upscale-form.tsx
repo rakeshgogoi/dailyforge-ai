@@ -154,11 +154,11 @@ export function UpscaleForm() {
 
       {file && (
         <div className="space-y-4 rounded-lg border border-border bg-card p-4">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <span className="text-sm text-muted-foreground">Scale</span>
               <Select value={String(scale)} onValueChange={(v) => v && setScale(Number(v) as 2 | 3 | 4)}>
-                <SelectTrigger className="w-28">
+                <SelectTrigger className="w-full sm:w-28">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -168,10 +168,10 @@ export function UpscaleForm() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <span className="text-sm text-muted-foreground">Format</span>
               <Select value={format} onValueChange={(v) => v && setFormat(v as Format)}>
-                <SelectTrigger className="w-28">
+                <SelectTrigger className="w-full sm:w-28">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -191,7 +191,7 @@ export function UpscaleForm() {
             Lanczos3 resampling — a high-quality classic resize, not AI super-resolution. Best for shrinking artifacts on already-decent images. For severely blurry sources, only AI upscalers help.
           </p>
 
-          <Button size="lg" onClick={run} disabled={loading}>
+          <Button size="lg" onClick={run} disabled={loading} className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

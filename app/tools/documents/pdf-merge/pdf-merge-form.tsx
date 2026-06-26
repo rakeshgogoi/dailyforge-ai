@@ -158,7 +158,7 @@ export function PdfMergeForm() {
 
       {items.length > 0 && (
         <div className="flex items-center gap-3">
-          <Button size="lg" onClick={merge} disabled={items.length < 2 || merging}>
+          <Button size="lg" onClick={merge} disabled={items.length < 2 || merging} className="w-full sm:w-auto">
             {merging ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

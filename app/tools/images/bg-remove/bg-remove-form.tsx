@@ -142,7 +142,7 @@ export function BgRemoveForm() {
 
       {file && !resultUrl && (
         <div className="space-y-3">
-          <Button size="lg" onClick={run} disabled={loading}>
+          <Button size="lg" onClick={run} disabled={loading} className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

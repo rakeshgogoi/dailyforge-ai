@@ -96,21 +96,22 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <header className="border-b border-border bg-header sticky top-0 z-10">
-            <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
               <Link href="/" className="font-semibold tracking-tight">
                 dailyforge<span className="text-orange-500">·</span>ai
               </Link>
-              <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-                <Link href="/#documents" className="hover:text-foreground">Documents</Link>
-                <Link href="/#images" className="hover:text-foreground">Images</Link>
-                <Link href="/#audio-video" className="hover:text-foreground">Audio & Video</Link>
+              <nav className="flex items-center gap-4 sm:gap-6 text-sm text-muted-foreground">
+                <Link href="/#documents" className="hidden sm:inline hover:text-foreground">Documents</Link>
+                <Link href="/#images" className="hidden sm:inline hover:text-foreground">Images</Link>
+                <Link href="/#audio-video" className="hidden sm:inline hover:text-foreground">Audio & Video</Link>
+                <Link href="/#documents" className="sm:hidden hover:text-foreground" aria-label="Browse tools">Tools</Link>
                 <ThemeToggle />
               </nav>
             </div>
           </header>
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-border mt-16">
-            <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground flex items-center justify-between">
+          <footer className="border-t border-border mt-12 sm:mt-16">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8 text-sm text-muted-foreground flex flex-col sm:flex-row gap-1 sm:gap-0 items-center sm:justify-between">
               <span>© {new Date().getFullYear()} dailyforge·ai</span>
               <span>Built for the daily grind.</span>
             </div>

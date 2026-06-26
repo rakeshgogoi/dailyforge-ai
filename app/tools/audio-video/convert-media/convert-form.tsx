@@ -210,10 +210,10 @@ export function ConvertMediaForm() {
           </div>
 
           <div className="space-y-3 rounded-lg border border-border bg-card p-4">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <span className="text-sm text-muted-foreground">Convert to</span>
               <Select value={target} onValueChange={(v) => v && setTarget(v)}>
-                <SelectTrigger className="w-44">
+                <SelectTrigger className="w-full sm:w-44">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -234,7 +234,7 @@ export function ConvertMediaForm() {
               )}
             </div>
 
-            <Button size="lg" onClick={run} disabled={running}>
+            <Button size="lg" onClick={run} disabled={running} className="w-full sm:w-auto">
               {running ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />

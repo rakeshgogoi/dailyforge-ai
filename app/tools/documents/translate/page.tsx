@@ -13,14 +13,14 @@ export default function TranslatePage() {
   const { category: cat, tool } = match;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 sm:py-16">
       <ToolSeo category="documents" slug="translate" />
       <nav className="text-sm text-muted-foreground mb-6">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
         <Link href={`/#${cat.slug}`} className="hover:text-foreground">{cat.name}</Link>
       </nav>
-      <h1 className="text-3xl font-semibold tracking-tight">{tool.name}</h1>
+      <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">{tool.name}</h1>
       <p className="mt-2 text-muted-foreground">Paste any text; auto-detect the source language and translate to your target. Document upload with formatting comes later.</p>
 
       <TranslateForm />

@@ -391,7 +391,7 @@ export function ConvertForm() {
         </div>
       )}
 
-      <Button size="lg" onClick={run} disabled={loading || !haveInput}>
+      <Button size="lg" onClick={run} disabled={loading || !haveInput} className="w-full sm:w-auto">
         {loading ? (
           <>
             <Loader2 className="size-4 animate-spin" />

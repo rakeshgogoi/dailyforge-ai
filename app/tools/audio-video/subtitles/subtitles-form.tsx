@@ -136,10 +136,10 @@ export function SubtitlesForm() {
 
       {file && (
         <div className="space-y-3 rounded-lg border border-border bg-card p-4">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <span className="text-sm text-muted-foreground">Output</span>
             <Select value={format} onValueChange={(v) => v && setFormat(v as Format)}>
-              <SelectTrigger className="w-44">
+              <SelectTrigger className="w-full sm:w-44">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -148,7 +148,7 @@ export function SubtitlesForm() {
               </SelectContent>
             </Select>
           </div>
-          <Button size="lg" onClick={run} disabled={loading}>
+          <Button size="lg" onClick={run} disabled={loading} className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

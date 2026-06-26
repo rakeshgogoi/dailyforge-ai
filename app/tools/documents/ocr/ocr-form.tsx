@@ -131,7 +131,7 @@ export function OcrForm() {
       )}
 
       {file && (
-        <Button size="lg" onClick={extract} disabled={loading}>
+        <Button size="lg" onClick={extract} disabled={loading} className="w-full sm:w-auto">
           {loading ? (
             <>
               <Loader2 className="size-4 animate-spin" />

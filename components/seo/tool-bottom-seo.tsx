@@ -20,10 +20,10 @@ export function ToolBottomSeo({ category, slug }: { category: string; slug: stri
       : null;
 
   return (
-    <section className="mt-16 border-t border-border pt-12">
+    <section className="mt-10 sm:mt-16 border-t border-border pt-8 sm:pt-12">
       {tool.seoIntro && (
         <>
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="text-lg sm:text-xl font-semibold tracking-tight">
             About {tool.name}
           </h2>
           <p className="mt-3 text-muted-foreground leading-relaxed">
@@ -34,7 +34,7 @@ export function ToolBottomSeo({ category, slug }: { category: string; slug: stri
 
       {tool.faq && tool.faq.length > 0 && (
         <>
-          <h2 className="text-xl font-semibold tracking-tight mt-10">
+          <h2 className="text-lg sm:text-xl font-semibold tracking-tight mt-8 sm:mt-10">
             Frequently asked questions
           </h2>
           <div className="mt-4 space-y-3">

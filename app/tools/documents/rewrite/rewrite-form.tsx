@@ -82,7 +82,7 @@ export function RewriteForm() {
 
         <div className="flex flex-col sm:flex-row gap-2">
           <Select value={mode} onValueChange={(v) => setMode(v as Mode)}>
-            <SelectTrigger className="sm:w-64">
+            <SelectTrigger className="w-full sm:w-64">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -97,7 +97,7 @@ export function RewriteForm() {
             </SelectContent>
           </Select>
 
-          <Button type="submit" disabled={loading || !text.trim()} size="lg">
+          <Button type="submit" disabled={loading || !text.trim()} size="lg" className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

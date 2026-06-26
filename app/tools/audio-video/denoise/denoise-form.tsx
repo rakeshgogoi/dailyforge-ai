@@ -188,7 +188,7 @@ export function DenoiseForm() {
               </p>
             </div>
 
-            <Button size="lg" onClick={run} disabled={running}>
+            <Button size="lg" onClick={run} disabled={running} className="w-full sm:w-auto">
               {running ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />

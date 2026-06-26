@@ -11,21 +11,21 @@ import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-6">
-      <section className="py-20 sm:py-28 text-center">
-        <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="py-12 sm:py-20 lg:py-28 text-center">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
           Everyday tools,
           <br />
           <span className="text-orange-500">forged with AI.</span>
         </h1>
-        <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
+        <p className="mt-5 sm:mt-6 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
           Convert documents, clean up images, transcribe audio and video — and a few dozen other
           things you used to need ten different sites for. All in one place.
         </p>
-        <div className="mt-8 flex items-center justify-center gap-3 text-sm">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
           <Link
             href="#documents"
-            className={buttonVariants({ size: "lg", className: "rounded-full" })}
+            className={buttonVariants({ size: "lg", className: "rounded-full w-full sm:w-auto" })}
           >
             Browse tools
           </Link>
@@ -34,13 +34,13 @@ export default function Home() {
       </section>
 
       {CATEGORIES.map((category) => (
-        <section key={category.slug} id={category.slug} className="py-12 scroll-mt-20">
-          <div className="flex items-baseline justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">{category.name}</h2>
+        <section key={category.slug} id={category.slug} className="py-8 sm:py-12 scroll-mt-20">
+          <div className="flex items-baseline justify-between mb-5 sm:mb-6 gap-3">
+            <div className="min-w-0">
+              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">{category.name}</h2>
               <p className="text-muted-foreground text-sm mt-1">{category.tagline}</p>
             </div>
-            <span className="text-xs text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs text-muted-foreground uppercase tracking-wider whitespace-nowrap shrink-0">
               {category.tools.length} tools
             </span>
           </div>

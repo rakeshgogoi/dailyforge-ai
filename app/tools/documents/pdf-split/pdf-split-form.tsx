@@ -184,7 +184,7 @@ export function PdfSplitForm() {
             </p>
           </div>
 
-          <Button size="lg" onClick={split} disabled={!ranges.trim() || splitting}>
+          <Button size="lg" onClick={split} disabled={!ranges.trim() || splitting} className="w-full sm:w-auto">
             {splitting ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

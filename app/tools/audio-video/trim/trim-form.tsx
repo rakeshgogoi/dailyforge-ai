@@ -243,7 +243,7 @@ export function TrimForm() {
             </div>
             <p className="text-xs text-muted-foreground">Use seconds (12) or MM:SS (00:12). No re-encoding — output is byte-exact within keyframe boundaries.</p>
 
-            <Button size="lg" onClick={run} disabled={running}>
+            <Button size="lg" onClick={run} disabled={running} className="w-full sm:w-auto">
               {running ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />

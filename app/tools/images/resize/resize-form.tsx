@@ -198,10 +198,10 @@ export function ImageResizeForm() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
               <span className="text-sm text-muted-foreground">Fit</span>
               <Select value={fit} onValueChange={(v) => v && setFit(v as Fit)}>
-                <SelectTrigger className="w-56">
+                <SelectTrigger className="w-full sm:w-56">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -217,10 +217,10 @@ export function ImageResizeForm() {
               </Select>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <span className="text-sm text-muted-foreground">Format</span>
               <Select value={format} onValueChange={(v) => v && setFormat(v as Format)}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full sm:w-32">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -232,7 +232,7 @@ export function ImageResizeForm() {
             </div>
           </div>
 
-          <Button size="lg" onClick={run} disabled={loading || (!width && !height)}>
+          <Button size="lg" onClick={run} disabled={loading || (!width && !height)} className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />

@@ -60,7 +60,7 @@ export function SummarizeForm() {
           disabled={loading}
           className="flex-1"
         />
-        <Button type="submit" disabled={loading || !url.trim()} size="lg">
+        <Button type="submit" disabled={loading || !url.trim()} size="lg" className="w-full sm:w-auto">
           {loading ? (
             <>
               <Loader2 className="size-4 animate-spin" />

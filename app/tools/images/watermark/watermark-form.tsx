@@ -241,10 +241,10 @@ export function WatermarkForm() {
                   disabled={loading}
                 />
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:flex-wrap">
                 <span className="text-sm text-muted-foreground">Color</span>
                 <Select value={color} onValueChange={(v) => v && setColor(v as Color)}>
-                  <SelectTrigger className="w-36">
+                  <SelectTrigger className="w-full sm:w-36">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -336,10 +336,10 @@ export function WatermarkForm() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <span className="text-sm text-muted-foreground">Output format</span>
             <Select value={format} onValueChange={(v) => v && setFormat(v as Format)}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="w-full sm:w-32">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -350,7 +350,7 @@ export function WatermarkForm() {
             </Select>
           </div>
 
-          <Button size="lg" onClick={run} disabled={loading}>
+          <Button size="lg" onClick={run} disabled={loading} className="w-full sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="size-4 animate-spin" />
