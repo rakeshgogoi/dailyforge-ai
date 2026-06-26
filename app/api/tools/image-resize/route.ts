@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 
 const MAX_BYTES = 25 * 1024 * 1024; // 25 MB
@@ -34,6 +36,9 @@ function parseDimension(raw: string | null): number | undefined {
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("resize", req);
+  if (blocked) return blocked;
+
   let form: FormData;
   try {
     form = await req.formData();

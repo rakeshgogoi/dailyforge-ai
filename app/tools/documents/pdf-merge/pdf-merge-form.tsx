@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { ArrowDown, ArrowUp, Loader2, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
 import { Button } from "@/components/ui/button";
 
 type Item = { id: string; file: File };
@@ -55,6 +56,11 @@ export function PdfMergeForm() {
   async function merge() {
     if (items.length < 2) {
       toast.error("Add at least two PDFs to merge.");
+      return;
+    }
+    const gate = await gateRateLimit("pdf-merge");
+    if (!gate.ok) {
+      toast.error(gate.error);
       return;
     }
     setMerging(true);

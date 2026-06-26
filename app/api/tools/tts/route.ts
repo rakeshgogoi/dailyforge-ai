@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 
 const MAX_CHARS = 1500;
@@ -77,6 +79,9 @@ function concatWavs(buffers: Buffer[]): Buffer {
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("tts", req);
+  if (blocked) return blocked;
+
   const apiKey = process.env.SARVAM_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Server is missing SARVAM_API_KEY." }, { status: 500 });

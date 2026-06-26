@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 const MAX_BYTES = 1_500_000; // ~1.5 MB of raw HTML
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_TEXT_CHARS = 60_000; // sent to Gemini
@@ -62,6 +64,9 @@ async function fetchWithLimits(url: string): Promise<string> {
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("summarize", req);
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await req.json();

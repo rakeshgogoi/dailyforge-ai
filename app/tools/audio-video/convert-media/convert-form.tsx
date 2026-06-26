@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Download, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -118,6 +120,11 @@ export function ConvertMediaForm() {
 
   async function run() {
     if (!file) return;
+    const gate = await gateRateLimit("convert-media");
+    if (!gate.ok) {
+      toast.error(gate.error);
+      return;
+    }
     setRunning(true);
     setProgress(0);
     setPhase(isFFmpegLoaded() ? "processing" : "loading");

@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 const MODES = ["fix", "formal", "casual", "concise", "expand"] as const;
 type Mode = (typeof MODES)[number];
 
@@ -26,6 +28,9 @@ const MODE_INSTRUCTIONS: Record<Mode, string> = {
 };
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("rewrite", req);
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await req.json();

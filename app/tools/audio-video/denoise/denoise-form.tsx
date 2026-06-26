@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Download, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 import { runFFmpeg, isFFmpegLoaded } from "@/lib/ffmpeg";
 
@@ -68,6 +70,11 @@ export function DenoiseForm() {
 
   async function run() {
     if (!file) return;
+    const gate = await gateRateLimit("denoise");
+    if (!gate.ok) {
+      toast.error(gate.error);
+      return;
+    }
     setRunning(true);
     setProgress(0);
     setPhase(isFFmpegLoaded() ? "processing" : "loading");

@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 const MAX_INPUT_CHARS = 8000;
 
 const TARGET_LANGUAGES = [
@@ -48,6 +50,9 @@ const ResultSchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("translate", req);
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await req.json();

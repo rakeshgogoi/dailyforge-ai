@@ -7,6 +7,7 @@ import {
   jsonb,
   pgEnum,
   uuid,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 
 // ── Better Auth core tables ────────────────────────────────────────────
@@ -92,6 +93,23 @@ export const jobStatus = pgEnum("job_status", [
   "failed",
   "cancelled",
 ]);
+
+// Anonymous rate limit per (identity, tool). Identity is a long-lived
+// df_anon cookie (UUID) — or the request IP if cookies are blocked.
+export const rateLimits = pgTable(
+  "rate_limits",
+  {
+    identity: text("identity").notNull(),
+    tool: text("tool").notNull(),
+    count: integer("count").notNull().default(0),
+    windowStart: timestamp("window_start", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.identity, t.tool] }),
+  }),
+);
 
 export const jobs = pgTable("jobs", {
   id: uuid("id").primaryKey().defaultRandom(),

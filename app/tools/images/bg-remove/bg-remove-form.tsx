@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Download, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 
 function formatBytes(b: number) {
@@ -62,6 +64,11 @@ export function BgRemoveForm() {
 
   async function run() {
     if (!file) return;
+    const gate = await gateRateLimit("bg-remove");
+    if (!gate.ok) {
+      toast.error(gate.error);
+      return;
+    }
     setLoading(true);
     setProgress({ phase: "Loading model", percent: 0 });
     setResultUrl((prev) => {

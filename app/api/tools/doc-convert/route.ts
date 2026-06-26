@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
@@ -43,6 +45,9 @@ async function cc<T>(apiKey: string, path: string, init?: RequestInit): Promise<
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("convert", req);
+  if (blocked) return blocked;
+
   const apiKey = process.env.CLOUDCONVERT_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Server is missing CLOUDCONVERT_API_KEY." }, { status: 500 });

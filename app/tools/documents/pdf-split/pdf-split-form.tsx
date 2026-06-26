@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { FileText, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -83,6 +85,11 @@ export function PdfSplitForm() {
     const parsed = parseRanges(ranges, loaded.pageCount);
     if ("error" in parsed) {
       toast.error(parsed.error);
+      return;
+    }
+    const gate = await gateRateLimit("pdf-split");
+    if (!gate.ok) {
+      toast.error(gate.error);
       return;
     }
     setSplitting(true);

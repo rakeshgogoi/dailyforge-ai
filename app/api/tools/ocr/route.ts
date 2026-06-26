@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
 const ResultSchema = z.object({
@@ -26,6 +28,9 @@ const ACCEPTED_TYPES = new Set([
 ]);
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("ocr", req);
+  if (blocked) return blocked;
+
   let form: FormData;
   try {
     form = await req.formData();

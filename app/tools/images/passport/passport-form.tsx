@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Download, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -109,6 +111,11 @@ export function PassportForm() {
     if (!file) return;
     const preset = SIZES.find((s) => s.id === size)!;
     const bgColor = BG_COLORS.find((c) => c.id === bg)!;
+    const gate = await gateRateLimit("passport");
+    if (!gate.ok) {
+      toast.error(gate.error);
+      return;
+    }
     setLoading(true);
     setPhase("model");
     setProgress(0);

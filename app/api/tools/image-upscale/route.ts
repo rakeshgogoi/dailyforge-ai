@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 
 const MAX_BYTES = 25 * 1024 * 1024;
@@ -27,6 +29,9 @@ function pickFormat(input: string | null, fallback: Format): Format {
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("upscale", req);
+  if (blocked) return blocked;
+
   let form: FormData;
   try {
     form = await req.formData();

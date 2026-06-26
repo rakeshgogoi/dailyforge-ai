@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Download, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { gateRateLimit } from "@/lib/rate-limit-client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { runFFmpeg, isFFmpegLoaded } from "@/lib/ffmpeg";
@@ -122,6 +124,12 @@ export function TrimForm() {
     }
     if (endSec <= startSec) {
       toast.error("End must be after start.");
+      return;
+    }
+
+    const gate = await gateRateLimit("trim");
+    if (!gate.ok) {
+      toast.error(gate.error);
       return;
     }
 

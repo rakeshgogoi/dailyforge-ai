@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 const MAX_NOTES_CHARS = 12000;
 const MAX_JD_CHARS = 8000;
 
@@ -46,6 +48,9 @@ const ResultSchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("resume", req);
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await req.json();

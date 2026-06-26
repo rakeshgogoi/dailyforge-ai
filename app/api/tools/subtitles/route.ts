@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { enforceLimit } from "@/lib/rate-limit";
+
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
@@ -42,6 +44,9 @@ function toVtt(segments: Segment[]): string {
 }
 
 export async function POST(req: Request) {
+  const blocked = await enforceLimit("subtitles", req);
+  if (blocked) return blocked;
+
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Server is missing GROQ_API_KEY." }, { status: 500 });
