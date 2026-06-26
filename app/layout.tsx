@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { UserMenu } from "@/components/user-menu";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE_URL } from "@/lib/seo";
 
@@ -106,6 +107,7 @@ export default function RootLayout({
                 <Link href="/#audio-video" className="hidden sm:inline hover:text-foreground">Audio & Video</Link>
                 <Link href="/#documents" className="sm:hidden hover:text-foreground" aria-label="Browse tools">Tools</Link>
                 <ThemeToggle />
+                <UserMenu />
               </nav>
             </div>
           </header>
