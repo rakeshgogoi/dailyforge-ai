@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { getTool } from "@/lib/tools";
+import { toolMetadata } from "@/lib/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
+import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
 import { TtsForm } from "./tts-form";
 
 const match = getTool("audio-video", "tts")!;
 
-export const metadata = {
-  title: `${match.tool.name} — dailyforge·ai`,
-  description: match.tool.blurb,
-};
+export const metadata = toolMetadata("audio-video", "tts");
 
 export default function TtsPage() {
   const { category: cat, tool } = match;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
+      <ToolSeo category="audio-video" slug="tts" />
       <nav className="text-sm text-muted-foreground mb-6">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
@@ -23,6 +24,7 @@ export default function TtsPage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <TtsForm />
+      <ToolBottomSeo category="audio-video" slug="tts" />
     </div>
   );
 }

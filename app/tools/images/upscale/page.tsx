@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { getTool } from "@/lib/tools";
+import { toolMetadata } from "@/lib/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
+import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
 import { UpscaleForm } from "./upscale-form";
 
 const match = getTool("images", "upscale")!;
 
-export const metadata = {
-  title: `${match.tool.name} — dailyforge·ai`,
-  description: match.tool.blurb,
-};
+export const metadata = toolMetadata("images", "upscale");
 
 export default function UpscalePage() {
   const { category: cat, tool } = match;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
+      <ToolSeo category="images" slug="upscale" />
       <nav className="text-sm text-muted-foreground mb-6">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
@@ -23,6 +24,7 @@ export default function UpscalePage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <UpscaleForm />
+      <ToolBottomSeo category="images" slug="upscale" />
     </div>
   );
 }

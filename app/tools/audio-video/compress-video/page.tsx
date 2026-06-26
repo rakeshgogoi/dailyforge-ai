@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { getTool } from "@/lib/tools";
+import { toolMetadata } from "@/lib/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
+import { ToolBottomSeo } from "@/components/seo/tool-bottom-seo";
 import { CompressVideoForm } from "./compress-form";
 
 const match = getTool("audio-video", "compress-video")!;
 
-export const metadata = {
-  title: `${match.tool.name} — dailyforge·ai`,
-  description: match.tool.blurb,
-};
+export const metadata = toolMetadata("audio-video", "compress-video");
 
 export default function CompressVideoPage() {
   const { category: cat, tool } = match;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
+      <ToolSeo category="audio-video" slug="compress-video" />
       <nav className="text-sm text-muted-foreground mb-6">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span className="mx-2">/</span>
@@ -23,6 +24,7 @@ export default function CompressVideoPage() {
       <p className="mt-2 text-muted-foreground">{tool.blurb}</p>
 
       <CompressVideoForm />
+      <ToolBottomSeo category="audio-video" slug="compress-video" />
     </div>
   );
 }

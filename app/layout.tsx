@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE_URL } from "@/lib/seo";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const SEARCH_CONSOLE = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 const inter = Inter({
   variable: "--font-sans",
@@ -18,9 +25,56 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_TITLE = "Dailyforge AI — everyday tools, powered by AI";
+const SITE_DESCRIPTION =
+  "Convert documents, edit images, transcribe audio and video, and more — 22+ free AI tools, all in one place.";
+
 export const metadata: Metadata = {
-  title: "Dailyforge AI — everyday tools, powered by AI",
-  description: "Convert documents, edit images, transcribe audio and video. One platform for your daily AI utilities.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: "%s",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: "dailyforge·ai",
+  keywords: [
+    "AI tools",
+    "PDF converter",
+    "OCR",
+    "image background remover",
+    "transcribe audio",
+    "subtitle generator",
+    "text to speech",
+    "summarize URL",
+    "merge PDF",
+    "compress PDF",
+    "resume builder",
+    "translate text",
+    "free online tools",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "dailyforge·ai",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+  verification: SEARCH_CONSOLE ? { google: SEARCH_CONSOLE } : undefined,
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({
@@ -63,6 +117,23 @@ export default function RootLayout({
           </footer>
           <Toaster />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('js', new Date());
+gtag('config', '${GA_ID}', { send_page_view: true });`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
