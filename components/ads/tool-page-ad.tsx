@@ -37,7 +37,11 @@ export function ToolPageAd() {
   if (!ADSENSE_CLIENT || !TOOL_SLOT) return null;
 
   return (
-    <div className={filled ? "mt-10 -mb-2" : ""} aria-label="Sponsored">
+    <div
+      className={filled ? "mt-10 -mb-2" : ""}
+      style={filled ? undefined : { maxHeight: 0, overflow: "hidden" }}
+      aria-label="Sponsored"
+    >
       {filled && (
         <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
           Sponsored
